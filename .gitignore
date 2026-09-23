@@ -1,0 +1,13 @@
+work/
+slprj/
+*.slxc
+*.mex*
+codegen/
+*.autosave
+*_ert_rtw/
+*.asv
+*.hex
+*.elf
+*.eep
+*.bin
+*.map

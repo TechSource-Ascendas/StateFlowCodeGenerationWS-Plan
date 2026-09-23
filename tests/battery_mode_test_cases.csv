@@ -1,0 +1,8 @@
+Test Case,Vpack,Ipack,Temperature_C,Expected State,Expected state_id
+Normal idle,11.1,0,25,IDLE,0
+Charging,11.1,5,25,CHARGING,1
+Discharging,11.1,-5,25,DISCHARGING,2
+Undervoltage fault,8.5,0,25,FAULT,3
+Overvoltage fault,13.0,0,25,FAULT,3
+Overtemperature fault,11.1,0,60,FAULT,3
+Fault recovery,11.1,0,25,IDLE,0

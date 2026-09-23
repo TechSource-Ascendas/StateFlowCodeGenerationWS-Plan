@@ -1,0 +1,9 @@
+Requirement ID,Requirement,Logic
+REQ-01,Detect undervoltage fault,Vpack < 9.0
+REQ-02,Detect overvoltage fault,Vpack > 12.6
+REQ-03,Enter idle mode when voltage is safe and current is near zero,9.0 <= Vpack <= 12.6 and -1.0 <= Ipack <= 1.0
+REQ-04,Enter charging mode when voltage is safe and current is positive,9.0 <= Vpack <= 12.6 and Ipack > 1.0
+REQ-05,Enter discharging mode when voltage is safe and current is negative,9.0 <= Vpack <= 12.6 and Ipack < -1.0
+REQ-06,Show the active mode using LEDs,One mode LED ON for IDLE/CHARGING/DISCHARGING; all three LEDs ON signals FAULT
+REQ-07,Print status over serial,Print Vpack Ipack and active state
+REQ-08,Detect overtemperature fault,BatteryTemp_C > 50
