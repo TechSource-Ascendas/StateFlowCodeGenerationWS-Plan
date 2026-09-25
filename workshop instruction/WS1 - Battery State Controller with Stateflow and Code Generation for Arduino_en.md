@@ -15,7 +15,7 @@
 
 ---
 
-## 0. Workshop Overview
+## 1. Workshop Overview
 
 In this 2-hour hands-on workshop you will build a **Battery State Controller** — a finite-state machine that monitors a battery pack's voltage, current, and temperature and decides its operating mode:
 
@@ -39,7 +39,7 @@ You start from a **starter model** (`starter_model.slx`) that already contains t
 
 ---
 
-## 1. Learning Objectives
+## 2. Learning Objectives
 
 After this session you will be able to:
 
@@ -54,7 +54,7 @@ After this session you will be able to:
 
 ---
 
-## 2. Toolbox Verification (Step 0, ~10 min)
+## 3. Toolbox Verification (Step 0, ~10 min)
 
 Open MATLAB and run the **project file** first so the path and settings are configured:
 
@@ -92,7 +92,7 @@ In the installer window, confirm **"Simulink Support Package for Arduino Hardwar
 
 ---
 
-## 3. Open the Starter Model (Step 1, ~5 min)
+## 4. Open the Starter Model (Step 1, ~5 min)
 
 ```matlab
 >> open_system('models/starter_model.slx')
@@ -114,7 +114,7 @@ The starter model already contains (read-only for this step):
 
 ---
 
-## 4. Build the Stateflow Chart (Steps 2–6, ~40 min)
+## 5. Build the Stateflow Chart (Steps 2–6, ~40 min)
 
 Double-click the **Battery State Controller** chart to open the Stateflow Editor.
 
@@ -204,7 +204,7 @@ In the Stateflow Editor, open the **Symbols** pane (or **Model Explorer**). The 
 
 ---
 
-## 5. Simulate & Validate (Step 7, ~15 min)
+## 6. Simulate & Validate (Step 7, ~15 min)
 
 For desktop simulation, keep the **Source Select** switches **up** (toward the Dashboard knobs).
 
@@ -228,7 +228,7 @@ Open `tests/battery_mode_test_cases.csv`. For each row, set the three knobs to t
 
 ---
 
-## 6. Generate Code (Step 8, ~10 min)
+## 7. Generate Code (Step 8, ~10 min)
 
 With the logic validated, generate embedded C code:
 
@@ -256,7 +256,7 @@ This runs **Embedded Coder** using the model's configuration:
 
 ---
 
-## 7. Deploy to Arduino Uno (Step 9, ~15 min)
+## 8. Deploy to Arduino Uno (Step 9, ~15 min)
 
 ### Step 9a: Switch to hardware inputs
 
@@ -281,7 +281,7 @@ The LED Output block already maps to digital pins:
 ![Fully assembled circuit](images/fully_assembled_circuit.jpg)
 *Figure 4: The fully assembled hardware — potentiometers on A0/A1/A2 and the three status LEDs (330 Ω) on D8/D9/D10.*
 
-> 🛠️ **Wiring (per group):** connect a potentiometer to A0 (simulates Vpack), A1 (Ipack), A2 (temperature). Connect **3 LEDs** with 330 Ω resistors to **D8, D9, D10** (GND). For a quick check, sweep A0 with the pot: low voltage → FAULT (D8, D9, D10 all ON), safe mid → IDLE (D8 only), raise A1 above mid → CHARGING (D9 only), lower A1 below mid → DISCHARGING (D10 only).
+> 🛠️ **Wiring (per group):** connect a **1 kΩ–20 kΩ** potentiometer to A0 (simulates Vpack), A1 (Ipack), A2 (temperature). Connect **3 LEDs** with 330 Ω resistors to **D8, D9, D10** (GND). For a quick check, sweep A0 with the pot: low voltage → FAULT (D8, D9, D10 all ON), safe mid → IDLE (D8 only), raise A1 above mid → CHARGING (D9 only), lower A1 below mid → DISCHARGING (D10 only).
 
 ### Step 9b: Configure & build for hardware
 
@@ -312,7 +312,7 @@ Example: `111 100 0` → Vpack = 11.1 V, Ipack = 0.0 A, state = **IDLE**.
 
 ---
 
-## 8. Challenge (Step 10, ~10 min)
+## 9. Challenge (Step 10, ~10 min)
 
 Change the **undervoltage threshold** from `9.0` to `9.6` V in every guard that references it:
 
@@ -325,7 +325,7 @@ Re-run test case 4 with `Vpack = 9.3`: previously **IDLE** (9.3 ≥ 9.0 = safe),
 
 ---
 
-## 9. Summary
+## 10. Summary
 
 | Phase | Command / Action | Key Takeaway |
 |-------|------------------|--------------|
@@ -345,7 +345,7 @@ Requirements (CSV)  ->  Stateflow chart  ->  Simulink model  ->  Generated C  ->
 
 ---
 
-## 10. Troubleshooting
+## 11. Troubleshooting
 
 | Issue | Possible Cause | Solution |
 |-------|----------------|----------|
@@ -359,7 +359,7 @@ Requirements (CSV)  ->  Stateflow chart  ->  Simulink model  ->  Generated C  ->
 
 ---
 
-## 11. MathWorks References
+## 12. MathWorks References
 
 - [Getting Started with Stateflow](https://www.mathworks.com/help/stateflow/getting-started-with-stateflow.html)
 - [Model Finite State Machines](https://www.mathworks.com/help/stateflow/ug/why-use-stateflow-charts.html)

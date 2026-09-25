@@ -15,7 +15,7 @@
 
 ---
 
-## 0. Ringkasan Workshop
+## 1. Ringkasan Workshop
 
 Dalam workshop 2 jam ini, Anda akan membangun **Battery State Controller** — sebuah mesin keadaan (finite-state machine) yang memantau tegangan, arus, dan suhu baterai lalu menentukan mode operasinya:
 
@@ -39,7 +39,7 @@ Anda mulai dari **starter model** (`starter_model.slx`) yang sudah berisi rangka
 
 ---
 
-## 1. Tujuan Pembelajaran
+## 2. Tujuan Pembelajaran
 
 Setelah sesi ini Anda dapat:
 
@@ -54,7 +54,7 @@ Setelah sesi ini Anda dapat:
 
 ---
 
-## 2. Verifikasi Toolbox (Langkah 0, ~10 menit)
+## 3. Verifikasi Toolbox (Langkah 0, ~10 menit)
 
 Buka MATLAB dan jalankan **project file** lebih dulu agar path dan pengaturan sudah terkonfigurasi:
 
@@ -92,7 +92,7 @@ Di jendela installer, pastikan **"Simulink Support Package for Arduino Hardware"
 
 ---
 
-## 3. Buka Starter Model (Langkah 1, ~5 menit)
+## 4. Buka Starter Model (Langkah 1, ~5 menit)
 
 ```matlab
 >> open_system('models/starter_model.slx')
@@ -114,7 +114,7 @@ Starter model sudah berisi (read-only untuk langkah ini):
 
 ---
 
-## 4. Bangun Chart Stateflow (Langkah 2–6, ~40 menit)
+## 5. Bangun Chart Stateflow (Langkah 2–6, ~40 menit)
 
 Klik dua kali chart **Battery State Controller** untuk membuka Stateflow Editor.
 
@@ -204,7 +204,7 @@ Di Stateflow Editor, buka pane **Symbols** (atau **Model Explorer**). Chart haru
 
 ---
 
-## 5. Simulasi & Validasi (Langkah 7, ~15 menit)
+## 6. Simulasi & Validasi (Langkah 7, ~15 menit)
 
 Untuk simulasi desktop, biarkan switch **Source Select** posisi **atas** (menuju Dashboard knob).
 
@@ -228,7 +228,7 @@ Buka `tests/battery_mode_test_cases.csv`. Untuk tiap baris, atur ketiga knob ke 
 
 ---
 
-## 6. Generate Kode (Langkah 8, ~10 menit)
+## 7. Generate Kode (Langkah 8, ~10 menit)
 
 Setelah logika tervalidasi, hasilkan kode C embedded:
 
@@ -256,7 +256,7 @@ Perintah ini menjalankan **Embedded Coder** menggunakan konfigurasi model:
 
 ---
 
-## 7. Deploy ke Arduino Uno (Langkah 9, ~15 menit)
+## 8. Deploy ke Arduino Uno (Langkah 9, ~15 menit)
 
 ### Langkah 9a: Alihkan ke input hardware
 
@@ -281,7 +281,7 @@ Blok LED Output sudah memetakan ke pin digital:
 ![Sirkuit rakitan penuh](images/fully_assembled_circuit.jpg)
 *Gambar 4: Seluruh hardware yang sudah dirakit — potensiometer di A0/A1/A2 dan tiga LED status (330 Ω) di D8/D9/D10.*
 
-> 🛠️ **Wiring (per kelompok):** hubungkan potensiometer ke A0 (simulasikan Vpack), A1 (Ipack), A2 (suhu). Hubungkan **3 LED** dengan resistor 330 Ω ke **D8, D9, D10** (GND). Untuk cek cepat, putar A0: tegangan rendah → FAULT (D8, D9, D10 semua menyala), aman di tengah → IDLE (hanya D8), naikkan A1 di atas tengah → CHARGING (hanya D9), turunkan A1 di bawah tengah → DISCHARGING (hanya D10).
+> 🛠️ **Wiring (per kelompok):** hubungkan potensiometer **1 kΩ–20 kΩ** ke A0 (simulasikan Vpack), A1 (Ipack), A2 (suhu). Hubungkan **3 LED** dengan resistor 330 Ω ke **D8, D9, D10** (GND). Untuk cek cepat, putar A0: tegangan rendah → FAULT (D8, D9, D10 semua menyala), aman di tengah → IDLE (hanya D8), naikkan A1 di atas tengah → CHARGING (hanya D9), turunkan A1 di bawah tengah → DISCHARGING (hanya D10).
 
 ### Langkah 9b: Konfigurasi & build untuk hardware
 
@@ -312,7 +312,7 @@ Contoh: `111 100 0` → Vpack = 11.1 V, Ipack = 0.0 A, state = **IDLE**.
 
 ---
 
-## 8. Tantangan (Langkah 10, ~10 menit)
+## 9. Tantangan (Langkah 10, ~10 menit)
 
 Ubah **threshold undervoltage** dari `9.0` menjadi `9.6` V pada setiap guard yang mencantumkannya:
 
@@ -325,7 +325,7 @@ Jalankan ulang test case 4 dengan `Vpack = 9.3`: sebelumnya **IDLE** (9.3 ≥ 9.
 
 ---
 
-## 9. Ringkasan
+## 10. Ringkasan
 
 | Fase | Perintah / Aksi | Poin Utama |
 |------|-----------------|------------|
@@ -345,7 +345,7 @@ Requirements (CSV)  ->  Chart Stateflow  ->  Model Simulink  ->  Kode C Generate
 
 ---
 
-## 10. Troubleshooting
+## 11. Troubleshooting
 
 | Masalah | Kemungkinan Penyebab | Solusi |
 |---------|----------------------|--------|
@@ -359,7 +359,7 @@ Requirements (CSV)  ->  Chart Stateflow  ->  Model Simulink  ->  Kode C Generate
 
 ---
 
-## 11. Referensi MathWorks
+## 12. Referensi MathWorks
 
 - [Getting Started with Stateflow](https://www.mathworks.com/help/stateflow/getting-started-with-stateflow.html)
 - [Model Finite State Machines](https://www.mathworks.com/help/stateflow/ug/why-use-stateflow-charts.html)

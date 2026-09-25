@@ -40,6 +40,8 @@ StateFlowCodeGenerationWS-Plan/
    ├─ WS1 - Battery State Controller … _id.md      # Panduan langkah demi langkah (ID)
    ├─ WS1 - Battery State Controller … _en.docx    # DOCX berstyle (EN)
    ├─ WS1 - Battery State Controller … _id.docx    # DOCX berstyle (ID)
+   ├─ WS1 - Battery State Controller … _en.mlx     # Live Script (EN)
+   ├─ WS1 - Battery State Controller … _id.mlx     # Live Script (ID)
    └─ images/  (screenshot_starter_model.png, screenshot_completed_chart.png, screenshot_completed_model.png, fully_assembled_circuit.jpg, techsource_logo.png)
 ```
 
@@ -103,8 +105,22 @@ Bangun chart 4-state sendiri, atau buka `models/completed_model.slx` sebagai kun
 ## Prasyarat
 
 - MATLAB + produk di atas, dengan support package Arduino terpasang.
-- 1 Arduino Uno per kelompok, breadboard, 3 LED + resistor 330 Ω, 3 potensiometer.
 - (Opsional) `serialport` di MATLAB untuk membaca paket status alih-alih Arduino Serial Monitor.
+
+### Hardware per kelompok
+
+| No | Komponen | Jumlah | Satuan | Keterangan |
+| --- | --- | --- | --- | --- |
+| 1 | Arduino Uno (ATmega328P) | 1 | Unit | Satu board per kelompok (3 orang) |
+| 2 | Breadboard, full-size | 1 | Unit | Per kelompok |
+| 3 | Potensiometer, 3-pin, 1 kΩ–20 kΩ (breadboard) | 3 | Unit | A0 = `Vpack`, A1 = `Ipack`, A2 = suhu |
+| 4 | LED 5 mm — merah | 2 | Unit | LED status — 1 dipakai + 1 cadangan |
+| 5 | LED 5 mm — kuning | 2 | Unit | LED status — 1 dipakai + 1 cadangan |
+| 6 | LED 5 mm — hijau | 2 | Unit | LED status — 1 dipakai + 1 cadangan |
+| 7 | Resistor 330 Ω, 1/4 W through-hole | 6 | Unit | Satu per LED (D8–D10) — 3 dipakai + 3 cadangan |
+| 8 | Kabel jumper Dupont, M–M 40 pcs, 30 cm | 1 | Set | Per kelompok |
+
+Ketiga LED status terhubung ke D8/D9/D10 dan ketiga potensiometer ke A0/A1/A2 — lihat **Langkah 9a** pada panduan. Daftar yang sama tersedia sebagai spreadsheet: [`ComponentList_V1.0.xlsx`](ComponentList_V1.0.xlsx).
 
 ---
 

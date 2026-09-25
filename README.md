@@ -40,6 +40,8 @@ StateFlowCodeGenerationWS-Plan/
    ├─ WS1 - Battery State Controller … _id.md      # Step-by-step guide (ID)
    ├─ WS1 - Battery State Controller … _en.docx    # Styled DOCX (EN)
    ├─ WS1 - Battery State Controller … _id.docx    # Styled DOCX (ID)
+   ├─ WS1 - Battery State Controller … _en.mlx     # Live Script (EN)
+   ├─ WS1 - Battery State Controller … _id.mlx     # Live Script (ID)
    └─ images/  (screenshot_starter_model.png, screenshot_completed_chart.png, screenshot_completed_model.png, fully_assembled_circuit.jpg, techsource_logo.png)
 ```
 
@@ -103,8 +105,22 @@ Build the 4-state chart yourself, or open `models/completed_model.slx` as the an
 ## Prerequisites
 
 - MATLAB + the products listed above, with the Arduino support package installed.
-- One Arduino Uno per group, breadboard, 3 LEDs + 330 Ω resistors, 3 potentiometers.
 - (Optional) `serialport` in MATLAB to read the status packet instead of the Arduino Serial Monitor.
+
+### Hardware per group
+
+| No | Component | Qty | Unit | Notes |
+| --- | --- | --- | --- | --- |
+| 1 | Arduino Uno (ATmega328P) | 1 | Unit | One board per group of three |
+| 2 | Breadboard, full-size | 1 | Unit | Per group |
+| 3 | Potentiometer, 3-pin, 1 kΩ–20 kΩ (breadboard) | 3 | Unit | A0 = `Vpack`, A1 = `Ipack`, A2 = temperature |
+| 4 | LED 5 mm — red | 2 | Unit | Status LED — 1 used + 1 spare |
+| 5 | LED 5 mm — yellow | 2 | Unit | Status LED — 1 used + 1 spare |
+| 6 | LED 5 mm — green | 2 | Unit | Status LED — 1 used + 1 spare |
+| 7 | Resistor 330 Ω, 1/4 W through-hole | 6 | Unit | One per LED (D8–D10) — 3 used + 3 spares |
+| 8 | Dupont jumper wires, M–M 40 pcs, 30 cm | 1 | Set | Per group |
+
+The three status LEDs are wired to D8/D9/D10 and the three potentiometers to A0/A1/A2 — see **Step 9a** of the guide. The same list is available as a spreadsheet: [`ComponentList_V1.0.xlsx`](ComponentList_V1.0.xlsx).
 
 ---
 
