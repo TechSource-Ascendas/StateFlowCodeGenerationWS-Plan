@@ -2,7 +2,7 @@
 <img src="workshop instruction/images/techsource_logo.png" alt="TechSource Systems" width="400">
 </div>
 
-[![Buka di MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/)
+[![Buka di MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=TechSource-Ascendas/StateFlowCodeGenerationWS-Plan&project=StateflowCodeGenerationWorkshop.prj)
 
 # Hands-On Workshop — Stateflow, Code Generation & Deployment ke Arduino Uno
 
@@ -53,7 +53,7 @@ StateFlowCodeGenerationWS-Plan/
    ```matlab
    >> openProject('StateflowCodeGenerationWorkshop.prj')
    ```
-2. Verifikasi toolbox (Langkah 0 di panduan):
+2. Verifikasi toolbox (Langkah 1 di panduan):
    ```matlab
    >> ver('stateflow'), ver('simulink'), ver('ecoder')
    >> supportPackageInstaller   % pastikan "Simulink Support Package for Arduino Hardware"
@@ -120,7 +120,7 @@ Bangun chart 4-state sendiri, atau buka `models/completed_model.slx` sebagai kun
 | 7 | Resistor 330 Ω, 1/4 W through-hole | 6 | Unit | Satu per LED (D8–D10) — 3 dipakai + 3 cadangan |
 | 8 | Kabel jumper Dupont, M–M 40 pcs, 30 cm | 1 | Set | Per kelompok |
 
-Ketiga LED status terhubung ke D8/D9/D10 dan ketiga potensiometer ke A0/A1/A2 — lihat **Langkah 9a** pada panduan. Daftar yang sama tersedia sebagai spreadsheet: [`ComponentList_V1.0.xlsx`](ComponentList_V1.0.xlsx).
+Ketiga LED status terhubung ke D8/D9/D10 dan ketiga potensiometer ke A0/A1/A2 — lihat **Langkah 10a** pada panduan. Daftar yang sama tersedia sebagai spreadsheet: [`ComponentList_V1.0.xlsx`](ComponentList_V1.0.xlsx).
 
 ---
 

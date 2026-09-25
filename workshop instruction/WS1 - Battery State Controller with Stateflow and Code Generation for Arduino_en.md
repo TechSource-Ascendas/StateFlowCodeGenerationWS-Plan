@@ -54,7 +54,7 @@ After this session you will be able to:
 
 ---
 
-## 3. Toolbox Verification (Step 0, ~10 min)
+## 3. Toolbox Verification (Step 1, ~10 min)
 
 Open MATLAB and run the **project file** first so the path and settings are configured:
 
@@ -92,7 +92,7 @@ In the installer window, confirm **"Simulink Support Package for Arduino Hardwar
 
 ---
 
-## 4. Open the Starter Model (Step 1, ~5 min)
+## 4. Open the Starter Model (Step 2, ~5 min)
 
 ```matlab
 >> open_system('models/starter_model.slx')
@@ -114,11 +114,11 @@ The starter model already contains (read-only for this step):
 
 ---
 
-## 5. Build the Stateflow Chart (Steps 2–6, ~40 min)
+## 5. Build the Stateflow Chart (Steps 3–7, ~40 min)
 
 Double-click the **Battery State Controller** chart to open the Stateflow Editor.
 
-### Step 2: Add the four states
+### Step 3: Add the four states
 
 Drag **four State** shapes from the Stateflow palette (or right-click → **Add State**) onto the canvas. Double-click each and name it:
 
@@ -129,7 +129,7 @@ Drag **four State** shapes from the Stateflow palette (or right-click → **Add 
 | `DISCHARGING` | left, lower |
 | `FAULT` | center, lower |
 
-### Step 3: Add `during` actions to each state
+### Step 4: Add `during` actions to each state
 
 Click inside each state and type its `during` action (runs every simulation step while in that state):
 
@@ -159,7 +159,7 @@ during:
 
 > 💡 **Why `during`?** The chart re-evaluates every step. A `during` action keeps the LEDs and `state_id` held correctly for the whole time the state is active — exactly what the requirements (REQ-06, REQ-07) ask for.
 
-### Step 4: Add the transitions (guards)
+### Step 5: Add the transitions (guards)
 
 Draw a **transition** from one state to another, then double-click the arrow and type the guard condition inside `[ ]`. Build all transitions from `requirements/battery_mode_requirements.csv`:
 
@@ -179,7 +179,7 @@ Draw a **transition** from one state to another, then double-click the arrow and
 ![Completed Stateflow chart (MATLAB screenshot)](images/screenshot_completed_chart.png)
 *Figure 2: The completed 4-state chart with all transitions, as it appears in the Stateflow Editor. Use this as your reference while drawing.*
 
-### Step 5: Confirm the chart data (inputs / outputs)
+### Step 6: Confirm the chart data (inputs / outputs)
 
 In the Stateflow Editor, open the **Symbols** pane (or **Model Explorer**). The chart must expose:
 
@@ -195,7 +195,7 @@ In the Stateflow Editor, open the **Symbols** pane (or **Model Explorer**). The 
 
 > ✅ If you named the states and actions exactly as above, Stateflow auto-resolves these symbols. If a symbol shows a red **?**, right-click it → **Resolve to Input/Output Data**.
 
-### Step 6: Update & save
+### Step 7: Update & save
 
 ```matlab
 >> set_param('starter_model','SimulationCommand','update')
@@ -204,11 +204,11 @@ In the Stateflow Editor, open the **Symbols** pane (or **Model Explorer**). The 
 
 ---
 
-## 6. Simulate & Validate (Step 7, ~15 min)
+## 6. Simulate & Validate (Step 8, ~15 min)
 
 For desktop simulation, keep the **Source Select** switches **up** (toward the Dashboard knobs).
 
-### Step 7a: Run the 7 test cases
+### Step 8a: Run the 7 test cases
 
 Open `tests/battery_mode_test_cases.csv`. For each row, set the three knobs to the `Vpack`, `Ipack`, `Temperature_C` values, then **Run** (Ctrl+T) and read `state_id` / the State Display.
 
@@ -222,13 +222,13 @@ Open `tests/battery_mode_test_cases.csv`. For each row, set the three knobs to t
 | 6 | Overtemperature fault | 11.1 | 0 | 60 | FAULT | 3 |
 | 7 | Fault recovery | 11.1 | 0 | 25 | IDLE | 0 |
 
-> ✅ **Pass criterion:** the State Display block shows the Expected State and `state_id` matches for all 7 cases. If a case fails, re-check the guard conditions (Step 4) — a typo in `&&` / `||` is the usual cause.
+> ✅ **Pass criterion:** the State Display block shows the Expected State and `state_id` matches for all 7 cases. If a case fails, re-check the guard conditions (Step 5) — a typo in `&&` / `||` is the usual cause.
 
 > 🪟 **Tip:** drag the knobs, then click **Run**. Watch `Vpack_Display`, `Ipack_Display`, `State_Display`. The expected value appears after one sample step (SampleTime 0.1 s).
 
 ---
 
-## 7. Generate Code (Step 8, ~10 min)
+## 7. Generate Code (Step 9, ~10 min)
 
 With the logic validated, generate embedded C code:
 
@@ -252,13 +252,13 @@ This runs **Embedded Coder** using the model's configuration:
 
 > 💡 **Key takeaway:** the same Stateflow chart you drew produced a `model_step()` function that switches states in plain C — no manual coding. Open `starter_model.c` and search for `IDLE` / `CHARGING` to see how Stateflow compiles states into a `switch` on the state variable.
 
-> ⚠️ An **Embedded Coder license** is required for `slbuild`. If you only have the Arduino Support Package, the *deploy* step (Step 9) still works because it triggers code generation internally — but the standalone `slbuild` report is the clearest way to *see* the code.
+> ⚠️ An **Embedded Coder license** is required for `slbuild`. If you only have the Arduino Support Package, the *deploy* step (Step 10) still works because it triggers code generation internally — but the standalone `slbuild` report is the clearest way to *see* the code.
 
 ---
 
-## 8. Deploy to Arduino Uno (Step 9, ~15 min)
+## 8. Deploy to Arduino Uno (Step 10, ~15 min)
 
-### Step 9a: Switch to hardware inputs
+### Step 10a: Switch to hardware inputs
 
 In the model, set the three **Source Select** switches **down** (toward the Arduino pins):
 
@@ -283,7 +283,7 @@ The LED Output block already maps to digital pins:
 
 > 🛠️ **Wiring (per group):** connect a **1 kΩ–20 kΩ** potentiometer to A0 (simulates Vpack), A1 (Ipack), A2 (temperature). Connect **3 LEDs** with 330 Ω resistors to **D8, D9, D10** (GND). For a quick check, sweep A0 with the pot: low voltage → FAULT (D8, D9, D10 all ON), safe mid → IDLE (D8 only), raise A1 above mid → CHARGING (D9 only), lower A1 below mid → DISCHARGING (D10 only).
 
-### Step 9b: Configure & build for hardware
+### Step 10b: Configure & build for hardware
 
 1. **Apps → Hardware Setup** or set in **Model Settings (Ctrl+E)**:
    - **Hardware Implementation → Hardware board:** `Arduino Uno`
@@ -292,7 +292,7 @@ The LED Output block already maps to digital pins:
 
 MATLAB compiles, uploads the `.hex` to the Uno over USB, and starts it.
 
-### Step 9c: Read the serial status packet
+### Step 10c: Read the serial status packet
 
 Open the **Arduino Serial Monitor** (or MATLAB `serialport`) at the default baud. The model transmits one byte packet per step:
 
@@ -312,7 +312,7 @@ Example: `111 100 0` → Vpack = 11.1 V, Ipack = 0.0 A, state = **IDLE**.
 
 ---
 
-## 9. Challenge (Step 10, ~10 min)
+## 9. Challenge (Step 11, ~10 min)
 
 Change the **undervoltage threshold** from `9.0` to `9.6` V in every guard that references it:
 
@@ -351,7 +351,7 @@ Requirements (CSV)  ->  Stateflow chart  ->  Simulink model  ->  Generated C  ->
 |-------|----------------|----------|
 | Arduino support package missing | Not installed | `supportPackageInstaller` → install "Simulink Support Package for Arduino Hardware" |
 | Symbol shows red `?` in chart | Scope not resolved | Right-click symbol → Resolve to Input/Output Data |
-| Wrong state in simulation | Typo in `&&` / `||` guard | Compare guards to the Step 4 table line by line |
+| Wrong state in simulation | Typo in `&&` / `||` guard | Compare guards to the Step 5 table line by line |
 | `slbuild` license error | No coder license | Use Deploy (`Ctrl+B`) which generates internally; or obtain Embedded Coder |
 | Upload fails / "port busy" | Serial Monitor open or wrong COM | Close Serial Monitor; pick correct COM port in Device Manager |
 | LED never lights on Uno | Source Select still "up" | Flip the 3 Source Select switches **down** to Arduino pins |

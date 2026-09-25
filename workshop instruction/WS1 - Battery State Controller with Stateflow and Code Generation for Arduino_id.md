@@ -54,7 +54,7 @@ Setelah sesi ini Anda dapat:
 
 ---
 
-## 3. Verifikasi Toolbox (Langkah 0, ~10 menit)
+## 3. Verifikasi Toolbox (Langkah 1, ~10 menit)
 
 Buka MATLAB dan jalankan **project file** lebih dulu agar path dan pengaturan sudah terkonfigurasi:
 
@@ -92,7 +92,7 @@ Di jendela installer, pastikan **"Simulink Support Package for Arduino Hardware"
 
 ---
 
-## 4. Buka Starter Model (Langkah 1, ~5 menit)
+## 4. Buka Starter Model (Langkah 2, ~5 menit)
 
 ```matlab
 >> open_system('models/starter_model.slx')
@@ -114,11 +114,11 @@ Starter model sudah berisi (read-only untuk langkah ini):
 
 ---
 
-## 5. Bangun Chart Stateflow (Langkah 2–6, ~40 menit)
+## 5. Bangun Chart Stateflow (Langkah 3–7, ~40 menit)
 
 Klik dua kali chart **Battery State Controller** untuk membuka Stateflow Editor.
 
-### Langkah 2: Tambahkan empat state
+### Langkah 3: Tambahkan empat state
 
 Seret **empat bentuk State** dari palet Stateflow (atau klik kanan → **Add State**) ke kanvas. Klik dua kali masing-masing dan beri nama:
 
@@ -129,7 +129,7 @@ Seret **empat bentuk State** dari palet Stateflow (atau klik kanan → **Add Sta
 | `DISCHARGING` | kiri, bawah |
 | `FAULT` | tengah, bawah |
 
-### Langkah 3: Tambahkan aksi `during` pada tiap state
+### Langkah 4: Tambahkan aksi `during` pada tiap state
 
 Klik di dalam tiap state dan ketik aksi `during`-nya (berjalan setiap step simulasi saat state aktif):
 
@@ -159,7 +159,7 @@ during:
 
 > 💡 **Mengapa `during`?** Chart dievaluasi ulang setiap step. Aksi `during` menjaga LED dan `state_id` tetap benar selama state aktif — persis seperti yang diminta requirement (REQ-06, REQ-07).
 
-### Langkah 4: Tambahkan transisi (guard)
+### Langkah 5: Tambahkan transisi (guard)
 
 Tarik **transisi** dari satu state ke state lain, lalu klik dua kali panah dan ketik kondisi guard di dalam `[ ]`. Buat semua transisi dari `requirements/battery_mode_requirements.csv`:
 
@@ -179,7 +179,7 @@ Tarik **transisi** dari satu state ke state lain, lalu klik dua kali panah dan k
 ![Completed Stateflow chart (tangkapan MATLAB)](images/screenshot_completed_chart.png)
 *Gambar 2: Chart 4-state lengkap dengan semua transisi, seperti tampak di Stateflow Editor. Gunakan ini sebagai referensi saat menggambar.*
 
-### Langkah 5: Pastikan data chart (input / output)
+### Langkah 6: Pastikan data chart (input / output)
 
 Di Stateflow Editor, buka pane **Symbols** (atau **Model Explorer**). Chart harus mengekspos:
 
@@ -195,7 +195,7 @@ Di Stateflow Editor, buka pane **Symbols** (atau **Model Explorer**). Chart haru
 
 > ✅ Jika Anda menamai state dan aksi persis seperti di atas, Stateflow otomatis menyelesaikan simbol ini. Jika ada simbol berwarna merah **?**, klik kanan → **Resolve to Input/Output Data**.
 
-### Langkah 6: Update & simpan
+### Langkah 7: Update & simpan
 
 ```matlab
 >> set_param('starter_model','SimulationCommand','update')
@@ -204,11 +204,11 @@ Di Stateflow Editor, buka pane **Symbols** (atau **Model Explorer**). Chart haru
 
 ---
 
-## 6. Simulasi & Validasi (Langkah 7, ~15 menit)
+## 6. Simulasi & Validasi (Langkah 8, ~15 menit)
 
 Untuk simulasi desktop, biarkan switch **Source Select** posisi **atas** (menuju Dashboard knob).
 
-### Langkah 7a: Jalankan 7 test case
+### Langkah 8a: Jalankan 7 test case
 
 Buka `tests/battery_mode_test_cases.csv`. Untuk tiap baris, atur ketiga knob ke nilai `Vpack`, `Ipack`, `Temperature_C`, lalu **Run** (Ctrl+T) dan baca `state_id` / State Display.
 
@@ -222,13 +222,13 @@ Buka `tests/battery_mode_test_cases.csv`. Untuk tiap baris, atur ketiga knob ke 
 | 6 | Overtemperature fault | 11.1 | 0 | 60 | FAULT | 3 |
 | 7 | Fault recovery | 11.1 | 0 | 25 | IDLE | 0 |
 
-> ✅ **Kriteria lulus:** blok State Display menunjukkan Expected State dan `state_id` cocok untuk ke-7 kasus. Jika gagal, periksa ulang kondisi guard (Langkah 4) — salah ketik `&&` / `||` adalah penyebab umum.
+> ✅ **Kriteria lulus:** blok State Display menunjukkan Expected State dan `state_id` cocok untuk ke-7 kasus. Jika gagal, periksa ulang kondisi guard (Langkah 5) — salah ketik `&&` / `||` adalah penyebab umum.
 
 > 🪟 **Tips:** seret knob, lalu klik **Run**. Amati `Vpack_Display`, `Ipack_Display`, `State_Display`. Nilai yang diharapkan muncul setelah satu sample step (SampleTime 0.1 s).
 
 ---
 
-## 7. Generate Kode (Langkah 8, ~10 menit)
+## 7. Generate Kode (Langkah 9, ~10 menit)
 
 Setelah logika tervalidasi, hasilkan kode C embedded:
 
@@ -252,13 +252,13 @@ Perintah ini menjalankan **Embedded Coder** menggunakan konfigurasi model:
 
 > 💡 **Poin utama:** chart Stateflow yang Anda gambar menghasilkan fungsi `model_step()` yang mengalihkan state dalam C biasa — tanpa coding manual. Buka `starter_model.c` dan cari `IDLE` / `CHARGING` untuk melihat bagaimana Stateflow mengompilasi state menjadi `switch` pada variabel state.
 
-> ⚠️ Lisensi **Embedded Coder** diperlukan untuk `slbuild`. Jika hanya punya Arduino Support Package, langkah *deploy* (Langkah 9) tetap berjalan karena memicu generate kode secara internal — tapi laporan `slbuild` adalah cara paling jelas untuk *melihat* kodenya.
+> ⚠️ Lisensi **Embedded Coder** diperlukan untuk `slbuild`. Jika hanya punya Arduino Support Package, langkah *deploy* (Langkah 10) tetap berjalan karena memicu generate kode secara internal — tapi laporan `slbuild` adalah cara paling jelas untuk *melihat* kodenya.
 
 ---
 
-## 8. Deploy ke Arduino Uno (Langkah 9, ~15 menit)
+## 8. Deploy ke Arduino Uno (Langkah 10, ~15 menit)
 
-### Langkah 9a: Alihkan ke input hardware
+### Langkah 10a: Alihkan ke input hardware
 
 Di model, setel ketiga switch **Source Select** posisi **bawah** (menuju pin Arduino):
 
@@ -283,7 +283,7 @@ Blok LED Output sudah memetakan ke pin digital:
 
 > 🛠️ **Wiring (per kelompok):** hubungkan potensiometer **1 kΩ–20 kΩ** ke A0 (simulasikan Vpack), A1 (Ipack), A2 (suhu). Hubungkan **3 LED** dengan resistor 330 Ω ke **D8, D9, D10** (GND). Untuk cek cepat, putar A0: tegangan rendah → FAULT (D8, D9, D10 semua menyala), aman di tengah → IDLE (hanya D8), naikkan A1 di atas tengah → CHARGING (hanya D9), turunkan A1 di bawah tengah → DISCHARGING (hanya D10).
 
-### Langkah 9b: Konfigurasi & build untuk hardware
+### Langkah 10b: Konfigurasi & build untuk hardware
 
 1. **Apps → Hardware Setup** atau atur di **Model Settings (Ctrl+E)**:
    - **Hardware Implementation → Hardware board:** `Arduino Uno`
@@ -292,7 +292,7 @@ Blok LED Output sudah memetakan ke pin digital:
 
 MATLAB mengompilasi, mengunggah `.hex` ke Uno lewat USB, dan menjalankannya.
 
-### Langkah 9c: Baca paket status serial
+### Langkah 10c: Baca paket status serial
 
 Buka **Arduino Serial Monitor** (atau MATLAB `serialport`) pada baud default. Model mengirim satu paket byte tiap step:
 
@@ -312,7 +312,7 @@ Contoh: `111 100 0` → Vpack = 11.1 V, Ipack = 0.0 A, state = **IDLE**.
 
 ---
 
-## 9. Tantangan (Langkah 10, ~10 menit)
+## 9. Tantangan (Langkah 11, ~10 menit)
 
 Ubah **threshold undervoltage** dari `9.0` menjadi `9.6` V pada setiap guard yang mencantumkannya:
 
@@ -351,7 +351,7 @@ Requirements (CSV)  ->  Chart Stateflow  ->  Model Simulink  ->  Kode C Generate
 |---------|----------------------|--------|
 | Arduino support package hilang | Belum terpasang | `supportPackageInstaller` → instal "Simulink Support Package for Arduino Hardware" |
 | Simbol merah `?` di chart | Scope belum resolve | Klik kanan simbol → Resolve ke Input/Output Data |
-| Salah state di simulasi | Typo di guard `&&` / `||` | Bandingkan guard dengan tabel Langkah 4 baris per baris |
+| Salah state di simulasi | Typo di guard `&&` / `||` | Bandingkan guard dengan tabel Langkah 5 baris per baris |
 | Error lisensi `slbuild` | Tidak ada lisensi coder | Gunakan Deploy (`Ctrl+B`) yang generate internal; atau dapatkan Embedded Coder |
 | Upload gagal / "port busy" | Serial Monitor terbuka atau COM salah | Tutup Serial Monitor; pilih COM benar di Device Manager |
 | LED tak pernah menyala di Uno | Source Select masih "atas" | Balik ketiga switch Source Select ke **bawah** (pin Arduino) |

@@ -2,7 +2,7 @@
 <img src="workshop instruction/images/techsource_logo.png" alt="TechSource Systems" width="400">
 </div>
 
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/)
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=TechSource-Ascendas/StateFlowCodeGenerationWS-Plan&project=StateflowCodeGenerationWorkshop.prj)
 
 # Hands-On Workshop — Stateflow, Code Generation & Deployment to Arduino Uno
 
@@ -53,7 +53,7 @@ StateFlowCodeGenerationWS-Plan/
    ```matlab
    >> openProject('StateflowCodeGenerationWorkshop.prj')
    ```
-2. Verify toolboxes (Step 0 in the guide):
+2. Verify toolboxes (Step 1 in the guide):
    ```matlab
    >> ver('stateflow'), ver('simulink'), ver('ecoder')
    >> supportPackageInstaller   % confirm "Simulink Support Package for Arduino Hardware"
@@ -120,7 +120,7 @@ Build the 4-state chart yourself, or open `models/completed_model.slx` as the an
 | 7 | Resistor 330 Ω, 1/4 W through-hole | 6 | Unit | One per LED (D8–D10) — 3 used + 3 spares |
 | 8 | Dupont jumper wires, M–M 40 pcs, 30 cm | 1 | Set | Per group |
 
-The three status LEDs are wired to D8/D9/D10 and the three potentiometers to A0/A1/A2 — see **Step 9a** of the guide. The same list is available as a spreadsheet: [`ComponentList_V1.0.xlsx`](ComponentList_V1.0.xlsx).
+The three status LEDs are wired to D8/D9/D10 and the three potentiometers to A0/A1/A2 — see **Step 10a** of the guide. The same list is available as a spreadsheet: [`ComponentList_V1.0.xlsx`](ComponentList_V1.0.xlsx).
 
 ---
 
