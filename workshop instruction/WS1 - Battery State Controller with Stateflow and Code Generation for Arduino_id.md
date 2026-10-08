@@ -80,6 +80,10 @@ Lalu verifikasi setiap produk yang diperlukan:
 
 Di jendela installer, pastikan **"Simulink Support Package for Arduino Hardware"** berstatus **Installed**. Jika belum, pilih dan klik **Install**.
 
+![Add-On Explorer menampilkan Simulink Support Package for Arduino Hardware dan MATLAB Support Package for Arduino Hardware berstatus Installed (disorot)](images/screenshot_support_package_installed.png)
+
+*Kedua package Arduino disorot merah: **Simulink Support Package for Arduino Hardware** (kiri) dan **MATLAB Support Package for Arduino Hardware** (tengah). Keduanya harus berstatus **Installed**.*
+
 **Produk minimal yang diharapkan (dari `ver`):**
 
 | Product | Perintah cek | Fungsi |
@@ -87,6 +91,12 @@ Di jendela installer, pastikan **"Simulink Support Package for Arduino Hardware"
 | Stateflow | `ver('stateflow')` | Pemodelan state machine |
 | Simulink | `ver('simulink')` | Host model |
 | Embedded Coder | `ver('embeddedcoder')` | Kode C optimal siap hardware |
+
+![Output Command Window MATLAB untuk ver('stateflow')](images/screenshot_ver_stateflow.png)
+
+![Output Command Window MATLAB untuk ver('simulink')](images/screenshot_ver_simulink.png)
+
+![Output Command Window MATLAB untuk ver('embeddedcoder')](images/screenshot_ver_embeddedcoder.png)
 
 > 🔧 **Menginstal produk yang hilang (toolbox):** buka **Home → Add-Ons → Get Add-Ons** (Add-On Explorer), cari nama produk, lalu klik **Install** (butuh koneksi internet + akun MathWorks). **Dependency Analyzer** (App → atau `analyze` pada model/dependency-nya) mengonfirmasi produk yang dibutuhkan untuk workshop ini: **MATLAB, Simulink, Stateflow, Embedded Coder** — plus **Simulink Support Package for Arduino Hardware** untuk deployment.
 

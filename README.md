@@ -85,6 +85,16 @@ This workshop was validated with the **Dependency Analyzer** on the completed mo
 >> supportPackageInstaller   % confirm "Simulink Support Package for Arduino Hardware" = Installed
 ```
 
+![Add-On Explorer showing Simulink Support Package for Arduino Hardware and MATLAB Support Package for Arduino Hardware marked Installed (highlighted)](workshop%20instruction/images/screenshot_support_package_installed.png)
+
+*Both Arduino packages are highlighted in red: **Simulink Support Package for Arduino Hardware** (left) and **MATLAB Support Package for Arduino Hardware** (middle). Both must show **Installed**.*
+
+![MATLAB Command Window output of ver('stateflow')](workshop%20instruction/images/screenshot_ver_stateflow.png)
+
+![MATLAB Command Window output of ver('simulink')](workshop%20instruction/images/screenshot_ver_simulink.png)
+
+![MATLAB Command Window output of ver('embeddedcoder')](workshop%20instruction/images/screenshot_ver_embeddedcoder.png)
+
 ---
 
 ## The Model

@@ -80,6 +80,10 @@ Then verify every required product is installed:
 
 In the installer window, confirm **"Simulink Support Package for Arduino Hardware"** shows **Installed**. If not, select it and click **Install**.
 
+![Add-On Explorer showing Simulink Support Package for Arduino Hardware and MATLAB Support Package for Arduino Hardware marked Installed (highlighted)](images/screenshot_support_package_installed.png)
+
+*Both Arduino packages are highlighted in red: **Simulink Support Package for Arduino Hardware** (left) and **MATLAB Support Package for Arduino Hardware** (middle). Both must show **Installed**.*
+
 **Minimum expected products (from `ver`):**
 
 | Product | Check command | Purpose |
@@ -87,6 +91,12 @@ In the installer window, confirm **"Simulink Support Package for Arduino Hardwar
 | Stateflow | `ver('stateflow')` | State machine modelling |
 | Simulink | `ver('simulink')` | Model host |
 | Embedded Coder | `ver('embeddedcoder')` | Optimised, hardware-ready C |
+
+![MATLAB Command Window output of ver('stateflow')](images/screenshot_ver_stateflow.png)
+
+![MATLAB Command Window output of ver('simulink')](images/screenshot_ver_simulink.png)
+
+![MATLAB Command Window output of ver('embeddedcoder')](images/screenshot_ver_embeddedcoder.png)
 
 > 🔧 **Installing a missing product (toolbox):** open **Home → Add-Ons → Get Add-Ons** (Add-On Explorer), search the product name, and click **Install** (internet + MathWorks account required). The **Dependency Analyzer** (App → or `analyze` on your model or its dependencies) confirmed the required products for this workshop: **MATLAB, Simulink, Stateflow, Embedded Coder** — plus **Simulink Support Package for Arduino Hardware** for deployment.
 
