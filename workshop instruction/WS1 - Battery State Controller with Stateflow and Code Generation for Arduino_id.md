@@ -67,7 +67,7 @@ Lalu verifikasi setiap produk yang diperlukan:
 ```matlab
 >> ver('stateflow')      % Stateflow
 >> ver('simulink')       % Simulink
->> ver('ecoder')         % Embedded Coder
+>> ver('embeddedcoder')         % Embedded Coder
 ```
 
 > 🪟 **Jalankan di MATLAB Command Window (satu window).** Tabel versi muncul berarti produk terpasang. Jika ada produk **hilang**, pasang dari **Home → Add-Ons → Get Add-Ons** (cari nama produk).
@@ -82,11 +82,11 @@ Di jendela installer, pastikan **"Simulink Support Package for Arduino Hardware"
 
 **Produk minimal yang diharapkan (dari `ver`):**
 
-| Product | argumen `ver` | Fungsi |
+| Product | Perintah cek | Fungsi |
 |---------|---------------|--------|
 | Stateflow | `ver('stateflow')` | Pemodelan state machine |
 | Simulink | `ver('simulink')` | Host model |
-| Embedded Coder | `ver('ecoder')` | Kode C optimal siap hardware |
+| Embedded Coder | `ver('embeddedcoder')` | Kode C optimal siap hardware |
 
 > 🔧 **Menginstal produk yang hilang (toolbox):** buka **Home → Add-Ons → Get Add-Ons** (Add-On Explorer), cari nama produk, lalu klik **Install** (butuh koneksi internet + akun MathWorks). **Dependency Analyzer** (App → atau `analyze` pada model/dependency-nya) mengonfirmasi produk yang dibutuhkan untuk workshop ini: **MATLAB, Simulink, Stateflow, Embedded Coder** — plus **Simulink Support Package for Arduino Hardware** untuk deployment.
 
@@ -167,14 +167,20 @@ Tarik **transisi** dari satu state ke state lain, lalu klik dua kali panah dan k
 |-----------|---------------|-------------|
 | IDLE → CHARGING | `[Ipack > 1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-04 |
 | IDLE → DISCHARGING | `[Ipack < -1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-05 |
-| IDLE → FAULT | `[Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]` | REQ-01/02/08 |
+| IDLE → FAULT | *(lihat blok di bawah)* | REQ-01/02/08 |
 | CHARGING → IDLE | `[Ipack <= 1.0 && Ipack >= -1.0]` | REQ-03 |
 | CHARGING → DISCHARGING | `[Ipack < -1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-05 |
-| CHARGING → FAULT | `[Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]` | REQ-01/02/08 |
+| CHARGING → FAULT | *(lihat blok di bawah)* | REQ-01/02/08 |
 | DISCHARGING → IDLE | `[Ipack <= 1.0 && Ipack >= -1.0]` | REQ-03 |
 | DISCHARGING → CHARGING | `[Ipack > 1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-04 |
-| DISCHARGING → FAULT | `[Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]` | REQ-01/02/08 |
+| DISCHARGING → FAULT | *(lihat blok di bawah)* | REQ-01/02/08 |
 | FAULT → IDLE | `[Vpack >= 9.0 && Vpack <= 12.6 && BatteryTemp_C <= 50 && Ipack >= -1.0 && Ipack <= 1.0]` | recovery |
+
+```text
+IDLE → FAULT          [Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]
+CHARGING → FAULT      [Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]
+DISCHARGING → FAULT   [Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]
+```
 
 ![Completed Stateflow chart (tangkapan MATLAB)](images/screenshot_completed_chart.png)
 *Gambar 2: Chart 4-state lengkap dengan semua transisi, seperti tampak di Stateflow Editor. Gunakan ini sebagai referensi saat menggambar.*
@@ -351,7 +357,7 @@ Requirements (CSV)  ->  Chart Stateflow  ->  Model Simulink  ->  Kode C Generate
 |---------|----------------------|--------|
 | Arduino support package hilang | Belum terpasang | `supportPackageInstaller` → instal "Simulink Support Package for Arduino Hardware" |
 | Simbol merah `?` di chart | Scope belum resolve | Klik kanan simbol → Resolve ke Input/Output Data |
-| Salah state di simulasi | Typo di guard `&&` / `||` | Bandingkan guard dengan tabel Langkah 5 baris per baris |
+| Salah state di simulasi | Typo di guard AND atau OR | Bandingkan guard dengan tabel Langkah 5 baris per baris |
 | Error lisensi `slbuild` | Tidak ada lisensi coder | Gunakan Deploy (`Ctrl+B`) yang generate internal; atau dapatkan Embedded Coder |
 | Upload gagal / "port busy" | Serial Monitor terbuka atau COM salah | Tutup Serial Monitor; pilih COM benar di Device Manager |
 | LED tak pernah menyala di Uno | Source Select masih "atas" | Balik ketiga switch Source Select ke **bawah** (pin Arduino) |

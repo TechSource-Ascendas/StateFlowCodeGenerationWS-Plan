@@ -55,7 +55,7 @@ StateFlowCodeGenerationWS-Plan/
    ```
 2. Verifikasi toolbox (Langkah 1 di panduan):
    ```matlab
-   >> ver('stateflow'), ver('simulink'), ver('ecoder')
+   >> ver('stateflow'), ver('simulink'), ver('embeddedcoder')
    >> supportPackageInstaller   % pastikan "Simulink Support Package for Arduino Hardware"
    ```
 3. Buka starter model dan ikuti panduan:
@@ -76,12 +76,12 @@ Workshop ini divalidasi dengan **Dependency Analyzer** pada model lengkap. Selai
 | MATLAB | Runtime inti | (selalu ada) |
 | Simulink | Host model | `ver('simulink')` |
 | Stateflow | Desain state machine | `ver('stateflow')` |
-| Embedded Coder | Generate kode C siap hardware | `ver('ecoder')` |
+| Embedded Coder | Generate kode C siap hardware | `ver('embeddedcoder')` |
 | Simulink Support Package for Arduino Hardware | Deploy ke Arduino Uno | `supportPackageInstaller` (Support Package — tidak muncul di `ver`) |
 
 ```matlab
 % Verifikasi sekaligus bahwa semua produk terpasang:
->> ver('simulink'), ver('stateflow'), ver('ecoder')
+>> ver('simulink'), ver('stateflow'), ver('embeddedcoder')
 >> supportPackageInstaller   % pastikan "Simulink Support Package for Arduino Hardware" = Installed
 ```
 

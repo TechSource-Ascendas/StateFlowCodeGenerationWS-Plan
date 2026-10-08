@@ -67,7 +67,7 @@ Then verify every required product is installed:
 ```matlab
 >> ver('stateflow')      % Stateflow
 >> ver('simulink')       % Simulink
->> ver('ecoder')         % Embedded Coder
+>> ver('embeddedcoder')         % Embedded Coder
 ```
 
 > 🪟 **Run this in the MATLAB Command Window (single window).** A version table means the product is installed. If a product is **missing**, install it from **Home → Add-Ons → Get Add-Ons** (search the product name).
@@ -82,11 +82,11 @@ In the installer window, confirm **"Simulink Support Package for Arduino Hardwar
 
 **Minimum expected products (from `ver`):**
 
-| Product | `ver` argument | Purpose |
+| Product | Check command | Purpose |
 |---------|---------------|---------|
 | Stateflow | `ver('stateflow')` | State machine modelling |
 | Simulink | `ver('simulink')` | Model host |
-| Embedded Coder | `ver('ecoder')` | Optimised, hardware-ready C |
+| Embedded Coder | `ver('embeddedcoder')` | Optimised, hardware-ready C |
 
 > 🔧 **Installing a missing product (toolbox):** open **Home → Add-Ons → Get Add-Ons** (Add-On Explorer), search the product name, and click **Install** (internet + MathWorks account required). The **Dependency Analyzer** (App → or `analyze` on your model or its dependencies) confirmed the required products for this workshop: **MATLAB, Simulink, Stateflow, Embedded Coder** — plus **Simulink Support Package for Arduino Hardware** for deployment.
 
@@ -167,14 +167,20 @@ Draw a **transition** from one state to another, then double-click the arrow and
 |-----------|-----------------|-------------|
 | IDLE → CHARGING | `[Ipack > 1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-04 |
 | IDLE → DISCHARGING | `[Ipack < -1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-05 |
-| IDLE → FAULT | `[Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]` | REQ-01/02/08 |
+| IDLE → FAULT | *(see the block below)* | REQ-01/02/08 |
 | CHARGING → IDLE | `[Ipack <= 1.0 && Ipack >= -1.0]` | REQ-03 |
 | CHARGING → DISCHARGING | `[Ipack < -1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-05 |
-| CHARGING → FAULT | `[Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]` | REQ-01/02/08 |
+| CHARGING → FAULT | *(see the block below)* | REQ-01/02/08 |
 | DISCHARGING → IDLE | `[Ipack <= 1.0 && Ipack >= -1.0]` | REQ-03 |
 | DISCHARGING → CHARGING | `[Ipack > 1.0 && Vpack >= 9.0 && Vpack <= 12.6]` | REQ-04 |
-| DISCHARGING → FAULT | `[Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]` | REQ-01/02/08 |
+| DISCHARGING → FAULT | *(see the block below)* | REQ-01/02/08 |
 | FAULT → IDLE | `[Vpack >= 9.0 && Vpack <= 12.6 && BatteryTemp_C <= 50 && Ipack >= -1.0 && Ipack <= 1.0]` | recovery |
+
+```text
+IDLE → FAULT          [Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]
+CHARGING → FAULT      [Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]
+DISCHARGING → FAULT   [Vpack < 9.0 || Vpack > 12.6 || BatteryTemp_C > 50]
+```
 
 ![Completed Stateflow chart (MATLAB screenshot)](images/screenshot_completed_chart.png)
 *Figure 2: The completed 4-state chart with all transitions, as it appears in the Stateflow Editor. Use this as your reference while drawing.*
@@ -351,7 +357,7 @@ Requirements (CSV)  ->  Stateflow chart  ->  Simulink model  ->  Generated C  ->
 |-------|----------------|----------|
 | Arduino support package missing | Not installed | `supportPackageInstaller` → install "Simulink Support Package for Arduino Hardware" |
 | Symbol shows red `?` in chart | Scope not resolved | Right-click symbol → Resolve to Input/Output Data |
-| Wrong state in simulation | Typo in `&&` / `||` guard | Compare guards to the Step 5 table line by line |
+| Wrong state in simulation | Typo in an AND or OR guard | Compare guards to the Step 5 table line by line |
 | `slbuild` license error | No coder license | Use Deploy (`Ctrl+B`) which generates internally; or obtain Embedded Coder |
 | Upload fails / "port busy" | Serial Monitor open or wrong COM | Close Serial Monitor; pick correct COM port in Device Manager |
 | LED never lights on Uno | Source Select still "up" | Flip the 3 Source Select switches **down** to Arduino pins |

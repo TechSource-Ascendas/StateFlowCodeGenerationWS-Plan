@@ -55,7 +55,7 @@ StateFlowCodeGenerationWS-Plan/
    ```
 2. Verify toolboxes (Step 1 in the guide):
    ```matlab
-   >> ver('stateflow'), ver('simulink'), ver('ecoder')
+   >> ver('stateflow'), ver('simulink'), ver('embeddedcoder')
    >> supportPackageInstaller   % confirm "Simulink Support Package for Arduino Hardware"
    ```
 3. Open the starter model and follow the guide:
@@ -76,12 +76,12 @@ This workshop was validated with the **Dependency Analyzer** on the completed mo
 | MATLAB | Core runtime | (always present) |
 | Simulink | Model host | `ver('simulink')` |
 | Stateflow | State-machine design | `ver('stateflow')` |
-| Embedded Coder | Hardware-ready C code generation | `ver('ecoder')` |
+| Embedded Coder | Hardware-ready C code generation | `ver('embeddedcoder')` |
 | Simulink Support Package for Arduino Hardware | Deploys to the Arduino Uno | `supportPackageInstaller` (Support Package — not listed by `ver`) |
 
 ```matlab
 % One-shot verification that every required product is installed:
->> ver('simulink'), ver('stateflow'), ver('ecoder')
+>> ver('simulink'), ver('stateflow'), ver('embeddedcoder')
 >> supportPackageInstaller   % confirm "Simulink Support Package for Arduino Hardware" = Installed
 ```
 
