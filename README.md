@@ -18,6 +18,21 @@ This repository contains the complete participant + instructor material for a **
 
 ---
 
+## Learning Outcomes
+
+After this session you will be able to:
+
+1. ✅ Verify the required MathWorks toolboxes and hardware support package.
+2. ✅ Open and navigate a Stateflow chart inside Simulink.
+3. ✅ Model a finite-state machine with **states, transitions, and guards** (`[condition]`).
+4. ✅ Use `during` actions to drive outputs every time step.
+5. ✅ Connect Stateflow to Simulink inputs/outputs (data scope: Input/Output).
+6. ✅ Simulate a model and validate behaviour against requirements.
+7. ✅ Generate embedded C code and understand the generated files.
+8. ✅ Deploy a Simulink model to **Arduino Uno** and read serial output.
+
+---
+
 ## Folder Structure
 
 ```

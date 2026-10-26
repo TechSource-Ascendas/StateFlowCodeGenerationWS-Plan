@@ -18,6 +18,21 @@ Repositori ini berisi seluruh materi peserta & instruktur untuk workshop **2 jam
 
 ---
 
+## Tujuan Pembelajaran
+
+Setelah sesi ini Anda dapat:
+
+1. ✅ Memverifikasi toolbox MathWorks dan support package hardware yang diperlukan.
+2. ✅ Membuka dan menavigasi chart Stateflow di dalam Simulink.
+3. ✅ Memodelkan mesin keadaan dengan **state, transisi, dan guard** (`[kondisi]`).
+4. ✅ Menggunakan aksi `during` untuk menggerakkan output setiap step.
+5. ✅ Menghubungkan Stateflow ke input/output Simulink (data scope: Input/Output).
+6. ✅ Mensimulasikan model dan memvalidasi perilaku terhadap requirement.
+7. ✅ Men-generate kode C embedded dan memahami file yang dihasilkan.
+8. ✅ Mendeploy model Simulink ke **Arduino Uno** dan membaca output serial.
+
+---
+
 ## Struktur Folder
 
 ```
